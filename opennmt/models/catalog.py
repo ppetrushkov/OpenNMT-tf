@@ -258,3 +258,44 @@ class TransformerBigFP16(TransformerBig):
   """Defines a large Transformer model that uses half-precision floating points."""
   def __init__(self):
     super(TransformerBigFP16, self).__init__(dtype=tf.float16)
+
+class EmbeddingClassifier(onmt.models.EmbeddingClassifier):
+  """Simple classifier for finetuning models based on pretrained sentence embeddings"""
+  def __init__(self, dtype=tf.float32):
+    super(EmbeddingClassifier, self).__init__(
+        inputter=onmt.inputters.EmbeddingTextInputter(dtype=dtype),
+        labels_vocabulary_file_key="labels_vocabulary",
+        daisy_chain_variables=False,
+        name="embeddingclassifier")
+
+class EmbeddingClassifierXNLI(onmt.models.EmbeddingClassifier):
+  """Simple classifier for finetuning models based on pretrained sentence embeddings"""
+  def __init__(self, dtype=tf.float32):
+    super(EmbeddingClassifierXNLI, self).__init__(
+        inputter=onmt.inputters.EmbeddingTextInputter(dtype=dtype),
+        labels_vocabulary_file_key="labels_vocabulary",
+        daisy_chain_variables=False,
+        hidden_sizes=[512, 384],
+        dropout=0.3,
+        name="embeddingclassifierxnli")
+
+class EmbeddingRecordClassifier(onmt.models.EmbeddingClassifier):
+  """Simple classifier for finetuning models based on pretrained sentence embeddings"""
+  def __init__(self, dtype=tf.float32):
+    super(EmbeddingRecordClassifier, self).__init__(
+        inputter=onmt.inputters.EmbeddingRecordInputter(),
+        labels_vocabulary_file_key="labels_vocabulary",
+        daisy_chain_variables=False,
+        name="embeddingrecordclassifier")
+
+class EmbeddingRecordClassifierXNLI(onmt.models.EmbeddingClassifier):
+  """Simple classifier for finetuning models based on pretrained sentence embeddings"""
+  def __init__(self, dtype=tf.float32):
+    super(EmbeddingRecordClassifierXNLI, self).__init__(
+        inputter=onmt.inputters.EmbeddingRecordInputter(),
+        labels_vocabulary_file_key="labels_vocabulary",
+        daisy_chain_variables=False,
+        hidden_sizes=[512, 384],
+        dropout=0.3,
+        name="embeddingrecordclassifierxnli")
+
